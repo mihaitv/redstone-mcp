@@ -30,7 +30,7 @@ claude mcp add --transport http redstone https://redstonemarkets.com/api/mcp
 
 ### ChatGPT
 
-Find **Redstone** in ChatGPT's plugin directory and connect it.
+Connect [Redstone from ChatGPT's plugin directory](https://chatgpt.com/plugins/plugin_asdk_app_6ad2bd32b6308191a4282552c1e7b098).
 
 ### Cursor
 
