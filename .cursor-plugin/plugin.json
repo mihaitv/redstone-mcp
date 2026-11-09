@@ -1,0 +1,13 @@
+{
+  "name": "redstone-markets",
+  "displayName": "Redstone Markets",
+  "version": "1.0.0",
+  "description": "Performance, risk, comparisons, backtests and screening for US stocks and ETFs, with charts.",
+  "author": {
+    "name": "Redstone Markets",
+    "email": "support@redstonemarkets.com"
+  },
+  "license": "MIT",
+  "keywords": ["stocks", "etfs", "portfolio", "backtest", "screener", "finance", "mcp"],
+  "logo": "assets/logo.png"
+}

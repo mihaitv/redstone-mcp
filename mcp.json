@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "redstone": {
+      "url": "https://redstonemarkets.com/api/mcp"
+    }
+  }
+}
