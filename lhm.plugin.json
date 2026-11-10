@@ -1,0 +1,2001 @@
+{
+  "author": "Mihai Trinca",
+  "category": "stocks-finance",
+  "cloudEndpoint": "https://redstonemarkets.com/api/mcp",
+  "description": "Performance, risk, comparisons, backtests and screening for US stocks and ETFs, with charts.",
+  "homepage": "https://redstonemarkets.com/about#ai-assistants",
+  "icon": "https://redstonemarkets.com/web-app-manifest-512x512.png",
+  "identifier": "redstone-markets",
+  "name": "Redstone Markets",
+  "prompts": [],
+  "resources": [
+    {
+      "name": "performance-chart",
+      "uri": "ui://redstone/performance-chart-v3.html",
+      "description": "Performance chart and risk table for stocks, ETFs or a portfolio",
+      "mimeType": "text/html;profile=mcp-app"
+    }
+  ],
+  "tags": [
+    "stocks",
+    "etfs",
+    "portfolio",
+    "backtest",
+    "screener",
+    "risk"
+  ],
+  "tools": [
+    {
+      "name": "get_security_metrics",
+      "title": "Get stock or ETF performance and risk",
+      "description": "Use this when the user asks how a single US stock or ETF has performed or how risky it is: YTD, 1-year and 5-year annualized returns, max drawdown, volatility, Sharpe, Sortino, beta, alpha and dividend yield, with a 1Y/5Y chart. End-of-day data for US large and mid caps, major foreign stocks and US ETFs. Not for intraday quotes, news, earnings, fundamentals or price targets.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 12,
+            "description": "US ticker symbol, e.g. AAPL, VOO or BRK.B"
+          }
+        },
+        "required": [
+          "ticker"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "asOf": {
+            "description": "Market date (YYYY-MM-DD) of the latest close behind every number",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "security": {
+            "type": "object",
+            "properties": {
+              "return1dPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "returnYtdPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "return1yPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "return5yAnnualizedPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "maxDrawdown1yPct": {
+                "description": "Worst peak-to-trough fall over the past year (negative)",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "sharpe1y": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "sortino1y": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "beta1y": {
+                "description": "Versus SPY, from daily returns over the past year",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "alpha1yPct": {
+                "description": "Annualized, versus SPY",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "volatility1yPct": {
+                "description": "Annualized standard deviation of daily returns over the past year",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "dividendYieldPct": {
+                "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "statsSince": {
+                "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "ticker": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "stock",
+                  "etf"
+                ]
+              },
+              "sector": {
+                "description": "GICS sector for stocks, category for ETFs",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "price": {
+                "description": "Latest close in USD",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "description": "Redstone page for this security"
+              }
+            },
+            "required": [
+              "return1dPct",
+              "returnYtdPct",
+              "return1yPct",
+              "return5yAnnualizedPct",
+              "maxDrawdown1yPct",
+              "sharpe1y",
+              "sortino1y",
+              "beta1y",
+              "alpha1yPct",
+              "volatility1yPct",
+              "dividendYieldPct",
+              "statsSince",
+              "ticker",
+              "name",
+              "type",
+              "sector",
+              "price",
+              "url"
+            ],
+            "additionalProperties": false
+          },
+          "comparisons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Popular Redstone comparisons for this ticker"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "asOf",
+          "security",
+          "comparisons",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://redstone/performance-chart-v3.html"
+        },
+        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/toolInvocation/invoking": "Loading Redstone metrics…",
+        "openai/toolInvocation/invoked": "Metrics loaded"
+      }
+    },
+    {
+      "name": "compare_securities",
+      "title": "Compare stocks or ETFs",
+      "description": "Use this when the user wants to compare 2 to 5 US stocks or ETFs side by side (e.g. \"VOO vs QQQ\", \"SCHD or VYM?\"): returns, drawdown, volatility, Sharpe, beta, dividend yield and how correlated they are, with an overlaid 1Y/5Y chart. End-of-day data for US large and mid caps, major foreign stocks and US ETFs. Not for intraday quotes or recommendations on what to buy.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tickers": {
+            "minItems": 2,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 12,
+              "description": "US ticker symbol, e.g. AAPL, VOO or BRK.B"
+            },
+            "description": "Tickers to compare, in the order the user named them"
+          }
+        },
+        "required": [
+          "tickers"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "asOf": {
+            "description": "Market date (YYYY-MM-DD) of the latest close behind every number",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "securities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "return1dPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "returnYtdPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return1yPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return5yAnnualizedPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "maxDrawdown1yPct": {
+                  "description": "Worst peak-to-trough fall over the past year (negative)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sharpe1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sortino1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "beta1y": {
+                  "description": "Versus SPY, from daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "alpha1yPct": {
+                  "description": "Annualized, versus SPY",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "volatility1yPct": {
+                  "description": "Annualized standard deviation of daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "dividendYieldPct": {
+                  "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "statsSince": {
+                  "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "ticker": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "stock",
+                    "etf"
+                  ]
+                },
+                "sector": {
+                  "description": "GICS sector for stocks, category for ETFs",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "price": {
+                  "description": "Latest close in USD",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Redstone page for this security"
+                }
+              },
+              "required": [
+                "return1dPct",
+                "returnYtdPct",
+                "return1yPct",
+                "return5yAnnualizedPct",
+                "maxDrawdown1yPct",
+                "sharpe1y",
+                "sortino1y",
+                "beta1y",
+                "alpha1yPct",
+                "volatility1yPct",
+                "dividendYieldPct",
+                "statsSince",
+                "ticker",
+                "name",
+                "type",
+                "sector",
+                "price",
+                "url"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "correlation": {
+            "type": "object",
+            "properties": {
+              "tickers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "matrix": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "description": "Pearson correlation of daily returns over the past year, in the order of `tickers`"
+              },
+              "matrix5y": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "description": "Pearson correlation of weekly returns over the past five years, in the order of `tickers`; null where a ticker has less history. One year can be far from the usual relationship, so mention both when they differ much"
+              }
+            },
+            "required": [
+              "tickers",
+              "matrix",
+              "matrix5y"
+            ],
+            "additionalProperties": false
+          },
+          "url": {
+            "description": "Redstone compare page (pairs only)",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "asOf",
+          "securities",
+          "correlation",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://redstone/performance-chart-v3.html"
+        },
+        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/toolInvocation/invoking": "Comparing on Redstone…",
+        "openai/toolInvocation/invoked": "Comparison ready"
+      }
+    },
+    {
+      "name": "backtest_portfolio",
+      "title": "Backtest a stock and ETF portfolio",
+      "description": "Use this when the user describes a portfolio of US stocks and ETFs with weights (e.g. \"60% VTI, 40% BND\", \"equal parts AAPL, MSFT, NVDA\") and wants to know how it would have done or how risky it is: returns over YTD, 1 year and 5 years (rebalanced quarterly), max drawdown, volatility, Sharpe, beta vs SPY, dividend yield and the correlation between holdings, charted against SPY, with a link that opens it on Redstone to save. 2 to 20 holdings. Not for live brokerage accounts, trading or allocation advice.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "positions": {
+            "minItems": 2,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ticker": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 12,
+                  "description": "US ticker symbol, e.g. AAPL, VOO or BRK.B"
+                },
+                "weight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "Relative weight, e.g. 60 for 60%. Weights are rescaled to sum to 100%, so equal weights can all be 1"
+                }
+              },
+              "required": [
+                "ticker",
+                "weight"
+              ]
+            }
+          }
+        },
+        "required": [
+          "positions"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "asOf": {
+            "description": "Market date (YYYY-MM-DD) of the latest close behind every number",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "portfolio": {
+            "type": "object",
+            "properties": {
+              "return1dPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "returnYtdPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "return1yPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "return5yAnnualizedPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "maxDrawdown1yPct": {
+                "description": "Worst peak-to-trough fall over the past year (negative)",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "sharpe1y": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "sortino1y": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "beta1y": {
+                "description": "Versus SPY, from daily returns over the past year",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "alpha1yPct": {
+                "description": "Annualized, versus SPY",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "volatility1yPct": {
+                "description": "Annualized standard deviation of daily returns over the past year",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "dividendYieldPct": {
+                "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "statsSince": {
+                "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "return1dPct",
+              "returnYtdPct",
+              "return1yPct",
+              "return5yAnnualizedPct",
+              "maxDrawdown1yPct",
+              "sharpe1y",
+              "sortino1y",
+              "beta1y",
+              "alpha1yPct",
+              "volatility1yPct",
+              "dividendYieldPct",
+              "statsSince"
+            ],
+            "additionalProperties": false,
+            "description": "Backtest of the weights, rebalanced back to them every quarter"
+          },
+          "holdings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "return1dPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "returnYtdPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return1yPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return5yAnnualizedPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "maxDrawdown1yPct": {
+                  "description": "Worst peak-to-trough fall over the past year (negative)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sharpe1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sortino1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "beta1y": {
+                  "description": "Versus SPY, from daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "alpha1yPct": {
+                  "description": "Annualized, versus SPY",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "volatility1yPct": {
+                  "description": "Annualized standard deviation of daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "dividendYieldPct": {
+                  "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "statsSince": {
+                  "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "ticker": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "stock",
+                    "etf"
+                  ]
+                },
+                "sector": {
+                  "description": "GICS sector for stocks, category for ETFs",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "price": {
+                  "description": "Latest close in USD",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Redstone page for this security"
+                },
+                "weightPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "return1dPct",
+                "returnYtdPct",
+                "return1yPct",
+                "return5yAnnualizedPct",
+                "maxDrawdown1yPct",
+                "sharpe1y",
+                "sortino1y",
+                "beta1y",
+                "alpha1yPct",
+                "volatility1yPct",
+                "dividendYieldPct",
+                "statsSince",
+                "ticker",
+                "name",
+                "type",
+                "sector",
+                "price",
+                "url",
+                "weightPct"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "benchmark": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "return1dPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "returnYtdPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "return1yPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "return5yAnnualizedPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "maxDrawdown1yPct": {
+                    "description": "Worst peak-to-trough fall over the past year (negative)",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "sharpe1y": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "sortino1y": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "beta1y": {
+                    "description": "Versus SPY, from daily returns over the past year",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "alpha1yPct": {
+                    "description": "Annualized, versus SPY",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "volatility1yPct": {
+                    "description": "Annualized standard deviation of daily returns over the past year",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "dividendYieldPct": {
+                    "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "statsSince": {
+                    "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "ticker": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "stock",
+                      "etf"
+                    ]
+                  },
+                  "sector": {
+                    "description": "GICS sector for stocks, category for ETFs",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "price": {
+                    "description": "Latest close in USD",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Redstone page for this security"
+                  }
+                },
+                "required": [
+                  "return1dPct",
+                  "returnYtdPct",
+                  "return1yPct",
+                  "return5yAnnualizedPct",
+                  "maxDrawdown1yPct",
+                  "sharpe1y",
+                  "sortino1y",
+                  "beta1y",
+                  "alpha1yPct",
+                  "volatility1yPct",
+                  "dividendYieldPct",
+                  "statsSince",
+                  "ticker",
+                  "name",
+                  "type",
+                  "sector",
+                  "price",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "SPY, for comparison"
+          },
+          "correlation": {
+            "type": "object",
+            "properties": {
+              "tickers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "matrix": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "description": "Pearson correlation of daily returns over the past year, in the order of `tickers`"
+              },
+              "matrix5y": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "description": "Pearson correlation of weekly returns over the past five years, in the order of `tickers`; null where a ticker has less history. One year can be far from the usual relationship, so mention both when they differ much"
+              }
+            },
+            "required": [
+              "tickers",
+              "matrix",
+              "matrix5y"
+            ],
+            "additionalProperties": false
+          },
+          "url": {
+            "type": "string",
+            "description": "Opens Redstone's New portfolio form filled in with this mix, to save it and follow it on a dashboard"
+          }
+        },
+        "required": [
+          "asOf",
+          "portfolio",
+          "holdings",
+          "benchmark",
+          "correlation",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://redstone/performance-chart-v3.html"
+        },
+        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/toolInvocation/invoking": "Backtesting on Redstone…",
+        "openai/toolInvocation/invoked": "Backtest ready"
+      }
+    },
+    {
+      "name": "screen_securities",
+      "title": "Screen stocks and ETFs by performance and risk",
+      "description": "Use this when the user wants a ranked list of US stocks or ETFs by a performance, risk or dividend yield metric, optionally within a sector or ETF category (e.g. \"lowest volatility dividend ETFs\", \"highest yielding bond ETFs\", \"highest Sharpe tech stocks this year\", \"energy stocks with the smallest drawdown\"). Covers about 2,900 US-listed stocks and about 1,200 US ETFs, end-of-day. Not for fundamentals (P/E, revenue), news or buy recommendations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "default": "all",
+            "description": "Limit to stocks, ETFs, or both",
+            "type": "string",
+            "enum": [
+              "stock",
+              "etf",
+              "all"
+            ]
+          },
+          "sector": {
+            "description": "Case-insensitive match on a stock's GICS sector (e.g. Information Technology, Health Care, Energy, Financials) or an ETF's category (e.g. Dividend, Bonds, Treasury, Large Cap Growth, Emerging Markets, Gold)",
+            "type": "string",
+            "maxLength": 40
+          },
+          "sortBy": {
+            "default": "return1yPct",
+            "description": "Metric to rank by. For lowest risk, sort volatility1yPct ascending, maxDrawdown1yPct descending (closest to 0) or beta1y ascending",
+            "type": "string",
+            "enum": [
+              "return1dPct",
+              "returnYtdPct",
+              "return1yPct",
+              "return5yAnnualizedPct",
+              "maxDrawdown1yPct",
+              "sharpe1y",
+              "sortino1y",
+              "beta1y",
+              "alpha1yPct",
+              "volatility1yPct",
+              "dividendYieldPct"
+            ]
+          },
+          "order": {
+            "default": "desc",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ]
+          },
+          "filters": {
+            "description": "Optional bounds in each metric's own units, e.g. {metric: 'beta1y', max: 1}. maxDrawdown1yPct is negative, so a drawdown smaller than 20% is {metric: 'maxDrawdown1yPct', min: -20}",
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "metric": {
+                  "type": "string",
+                  "enum": [
+                    "return1dPct",
+                    "returnYtdPct",
+                    "return1yPct",
+                    "return5yAnnualizedPct",
+                    "maxDrawdown1yPct",
+                    "sharpe1y",
+                    "sortino1y",
+                    "beta1y",
+                    "alpha1yPct",
+                    "volatility1yPct",
+                    "dividendYieldPct"
+                  ]
+                },
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "metric"
+              ]
+            }
+          },
+          "limit": {
+            "default": 10,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 25
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "asOf": {
+            "description": "Market date (YYYY-MM-DD) of the latest close behind every number",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "totalMatches": {
+            "type": "number"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "return1dPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "returnYtdPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return1yPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return5yAnnualizedPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "maxDrawdown1yPct": {
+                  "description": "Worst peak-to-trough fall over the past year (negative)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sharpe1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sortino1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "beta1y": {
+                  "description": "Versus SPY, from daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "alpha1yPct": {
+                  "description": "Annualized, versus SPY",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "volatility1yPct": {
+                  "description": "Annualized standard deviation of daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "dividendYieldPct": {
+                  "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "statsSince": {
+                  "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "ticker": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "stock",
+                    "etf"
+                  ]
+                },
+                "sector": {
+                  "description": "GICS sector for stocks, category for ETFs",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "price": {
+                  "description": "Latest close in USD",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Redstone page for this security"
+                }
+              },
+              "required": [
+                "return1dPct",
+                "returnYtdPct",
+                "return1yPct",
+                "return5yAnnualizedPct",
+                "maxDrawdown1yPct",
+                "sharpe1y",
+                "sortino1y",
+                "beta1y",
+                "alpha1yPct",
+                "volatility1yPct",
+                "dividendYieldPct",
+                "statsSince",
+                "ticker",
+                "name",
+                "type",
+                "sector",
+                "price",
+                "url"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "url": {
+            "type": "string",
+            "description": "Redstone screener with every column and filter"
+          }
+        },
+        "required": [
+          "asOf",
+          "totalMatches",
+          "results",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Screening on Redstone…",
+        "openai/toolInvocation/invoked": "Screen ready"
+      }
+    },
+    {
+      "name": "search_portfolios",
+      "title": "Find shared and model portfolios",
+      "description": "Use this when the user wants to see real portfolios to learn from or copy (e.g. \"show me low-drawdown dividend portfolios\", \"portfolios that hold SCHD\", \"the best risk-adjusted portfolios on Redstone\"): the public portfolios Redstone's users built and shared, and Redstone's model portfolios, with past-year returns, risk and yield. Describe the kind of portfolio with the figure filters where one fits; nameIncludes only matches names, so keep it for themes no figure captures, such as \"AI\". Up to 10 results. Not for the user's own brokerage account or for recommending a portfolio to buy.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nameIncludes": {
+            "description": "Words to look for in portfolio names, e.g. 'dividend' or 'AI'; any one matching is enough",
+            "type": "string",
+            "maxLength": 60
+          },
+          "holds": {
+            "description": "Tickers every result must hold",
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 12,
+              "description": "US ticker symbol, e.g. AAPL, VOO or BRK.B"
+            }
+          },
+          "madeBy": {
+            "default": "anyone",
+            "description": "community: portfolios users built and shared; redstone: Redstone's model portfolios",
+            "type": "string",
+            "enum": [
+              "anyone",
+              "community",
+              "redstone"
+            ]
+          },
+          "minDividendYieldPct": {
+            "type": "number"
+          },
+          "maxDrawdownNoWorseThanPct": {
+            "description": "Keep portfolios whose worst fall over the past year was no deeper than this, e.g. -10",
+            "type": "number"
+          },
+          "minReturn1yPct": {
+            "type": "number"
+          },
+          "minSharpe": {
+            "type": "number"
+          },
+          "sortBy": {
+            "default": "sharpe1y",
+            "type": "string",
+            "enum": [
+              "sharpe1y",
+              "return1yPct",
+              "return5yAnnualizedPct",
+              "maxDrawdown1yPct",
+              "volatility1yPct",
+              "dividendYieldPct",
+              "newest"
+            ]
+          },
+          "order": {
+            "default": "desc",
+            "description": "desc puts the highest first; for drawdown the highest is the shallowest",
+            "type": "string",
+            "enum": [
+              "desc",
+              "asc"
+            ]
+          },
+          "limit": {
+            "default": 5,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "asOf": {
+            "description": "Market date (YYYY-MM-DD) of the latest close behind every number",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "totalMatches": {
+            "type": "number"
+          },
+          "portfolios": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "return1dPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "returnYtdPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return1yPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return5yAnnualizedPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "maxDrawdown1yPct": {
+                  "description": "Worst peak-to-trough fall over the past year (negative)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sharpe1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sortino1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "beta1y": {
+                  "description": "Versus SPY, from daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "alpha1yPct": {
+                  "description": "Annualized, versus SPY",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "volatility1yPct": {
+                  "description": "Annualized standard deviation of daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "dividendYieldPct": {
+                  "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "statsSince": {
+                  "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Named by its owner"
+                },
+                "by": {
+                  "description": "Owner's display name",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "madeBy": {
+                  "type": "string",
+                  "enum": [
+                    "community",
+                    "redstone"
+                  ],
+                  "description": "community: built and shared by a Redstone user; redstone: one of Redstone's model portfolios"
+                },
+                "holdings": {
+                  "type": "string",
+                  "description": "Largest holdings and their weights"
+                },
+                "holdingsCount": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "The portfolio's Redstone page"
+                }
+              },
+              "required": [
+                "return1dPct",
+                "returnYtdPct",
+                "return1yPct",
+                "return5yAnnualizedPct",
+                "maxDrawdown1yPct",
+                "sharpe1y",
+                "sortino1y",
+                "beta1y",
+                "alpha1yPct",
+                "volatility1yPct",
+                "dividendYieldPct",
+                "statsSince",
+                "name",
+                "by",
+                "madeBy",
+                "holdings",
+                "holdingsCount",
+                "url"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "url": {
+            "type": "string",
+            "description": "Redstone's portfolio library, to sort and filter"
+          }
+        },
+        "required": [
+          "asOf",
+          "totalMatches",
+          "portfolios",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Searching Redstone portfolios…",
+        "openai/toolInvocation/invoked": "Portfolios found"
+      }
+    },
+    {
+      "name": "get_portfolio",
+      "title": "Get a shared or model portfolio",
+      "description": "Use this when the user asks about one public Redstone portfolio, usually a search_portfolios result: its holdings with each one's own figures, its returns over YTD, 1 year and 5 years, max drawdown, volatility, Sharpe, beta and dividend yield, charted against SPY. Not for a portfolio the user describes (use backtest_portfolio) or private portfolios.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "portfolio": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "The portfolio's Redstone url, as search_portfolios returns it"
+          }
+        },
+        "required": [
+          "portfolio"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "asOf": {
+            "description": "Market date (YYYY-MM-DD) of the latest close behind every number",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "portfolio": {
+            "type": "object",
+            "properties": {
+              "return1dPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "returnYtdPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "return1yPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "return5yAnnualizedPct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "maxDrawdown1yPct": {
+                "description": "Worst peak-to-trough fall over the past year (negative)",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "sharpe1y": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "sortino1y": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "beta1y": {
+                "description": "Versus SPY, from daily returns over the past year",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "alpha1yPct": {
+                "description": "Annualized, versus SPY",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "volatility1yPct": {
+                "description": "Annualized standard deviation of daily returns over the past year",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "dividendYieldPct": {
+                "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "statsSince": {
+                "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "description": "Named by its owner"
+              },
+              "by": {
+                "description": "Owner's display name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "madeBy": {
+                "type": "string",
+                "enum": [
+                  "community",
+                  "redstone"
+                ],
+                "description": "community: built and shared by a Redstone user; redstone: one of Redstone's model portfolios"
+              },
+              "holdings": {
+                "type": "string",
+                "description": "Largest holdings and their weights"
+              },
+              "holdingsCount": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string",
+                "description": "The portfolio's Redstone page"
+              }
+            },
+            "required": [
+              "return1dPct",
+              "returnYtdPct",
+              "return1yPct",
+              "return5yAnnualizedPct",
+              "maxDrawdown1yPct",
+              "sharpe1y",
+              "sortino1y",
+              "beta1y",
+              "alpha1yPct",
+              "volatility1yPct",
+              "dividendYieldPct",
+              "statsSince",
+              "name",
+              "by",
+              "madeBy",
+              "holdings",
+              "holdingsCount",
+              "url"
+            ],
+            "additionalProperties": false,
+            "description": "As its page shows it: rebalanced back to its weights every quarter"
+          },
+          "holdings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "return1dPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "returnYtdPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return1yPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "return5yAnnualizedPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "maxDrawdown1yPct": {
+                  "description": "Worst peak-to-trough fall over the past year (negative)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sharpe1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "sortino1y": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "beta1y": {
+                  "description": "Versus SPY, from daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "alpha1yPct": {
+                  "description": "Annualized, versus SPY",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "volatility1yPct": {
+                  "description": "Annualized standard deviation of daily returns over the past year",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "dividendYieldPct": {
+                  "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "statsSince": {
+                  "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "ticker": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "stock",
+                    "etf"
+                  ]
+                },
+                "sector": {
+                  "description": "GICS sector for stocks, category for ETFs",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "price": {
+                  "description": "Latest close in USD",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Redstone page for this security"
+                },
+                "weightPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "return1dPct",
+                "returnYtdPct",
+                "return1yPct",
+                "return5yAnnualizedPct",
+                "maxDrawdown1yPct",
+                "sharpe1y",
+                "sortino1y",
+                "beta1y",
+                "alpha1yPct",
+                "volatility1yPct",
+                "dividendYieldPct",
+                "statsSince",
+                "ticker",
+                "name",
+                "type",
+                "sector",
+                "price",
+                "url",
+                "weightPct"
+              ],
+              "additionalProperties": false
+            },
+            "description": "The largest holdings, up to 20, with their own figures"
+          },
+          "benchmark": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "return1dPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "returnYtdPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "return1yPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "return5yAnnualizedPct": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "maxDrawdown1yPct": {
+                    "description": "Worst peak-to-trough fall over the past year (negative)",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "sharpe1y": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "sortino1y": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "beta1y": {
+                    "description": "Versus SPY, from daily returns over the past year",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "alpha1yPct": {
+                    "description": "Annualized, versus SPY",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "volatility1yPct": {
+                    "description": "Annualized standard deviation of daily returns over the past year",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "dividendYieldPct": {
+                    "description": "Trailing 12-month dividend yield: dividends that went ex in the past year over the latest close. 0 pays none; null when unknown (paid in another currency)",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "statsSince": {
+                    "description": "YYYY-MM-DD, set only when there is less than a year of history: the 1Y figures (return, drawdown, volatility, Sharpe, Sortino, beta, alpha, yield) then run from this first close, and so does the YTD return if it falls this year. Screens on those metrics leave such securities out",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "ticker": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "stock",
+                      "etf"
+                    ]
+                  },
+                  "sector": {
+                    "description": "GICS sector for stocks, category for ETFs",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "price": {
+                    "description": "Latest close in USD",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Redstone page for this security"
+                  }
+                },
+                "required": [
+                  "return1dPct",
+                  "returnYtdPct",
+                  "return1yPct",
+                  "return5yAnnualizedPct",
+                  "maxDrawdown1yPct",
+                  "sharpe1y",
+                  "sortino1y",
+                  "beta1y",
+                  "alpha1yPct",
+                  "volatility1yPct",
+                  "dividendYieldPct",
+                  "statsSince",
+                  "ticker",
+                  "name",
+                  "type",
+                  "sector",
+                  "price",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "SPY, for comparison"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "asOf",
+          "portfolio",
+          "holdings",
+          "benchmark",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://redstone/performance-chart-v3.html"
+        },
+        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/toolInvocation/invoking": "Loading the portfolio…",
+        "openai/toolInvocation/invoked": "Portfolio loaded"
+      }
+    }
+  ],
+  "version": "1.1.0"
+}
