@@ -5,7 +5,7 @@ description: Look up end-of-day performance and risk for US stocks and ETFs, com
 
 # Redstone Markets
 
-Redstone (redstonemarkets.com) has end-of-day (not real-time) analytics for about 2,900 US-listed stocks (the Russell 1000, the largest foreign companies and every other stock trading $5M+ a day) and about 1,200 US ETFs: YTD, 1-year and 5-year annualized returns, past-year risk (max drawdown, volatility, Sharpe, Sortino, beta and alpha vs SPY), dividend yield, correlations, backtests of hypothetical weighted portfolios, screening, and the public portfolios Redstone's users shared and its model portfolios. Returns are total returns in percent: split-adjusted, with dividends reinvested on the ex-date. Present results as historical data, not investment advice or predictions. Link the Redstone page each result includes.
+Redstone (redstonemarkets.com) has end-of-day (not real-time) analytics for about 2,900 US-listed stocks (the Russell 1000, the largest foreign companies and every other stock trading $5M+ a day) and about 1,700 US ETFs: YTD, 1-year and 5-year annualized returns, past-year risk (max drawdown, volatility, Sharpe, Sortino, beta and alpha vs SPY), dividend yield, correlations, backtests of hypothetical weighted portfolios, screening, and the public portfolios Redstone's users shared and its model portfolios. Returns are total returns in percent: split-adjusted, with dividends reinvested on the ex-date. Present results as historical data, not investment advice or predictions. Link the Redstone page each result includes.
 
 ## MCP server
 

@@ -997,7 +997,7 @@
     {
       "name": "screen_securities",
       "title": "Screen stocks and ETFs by performance and risk",
-      "description": "Use this when the user wants a ranked list of US stocks or ETFs by a performance, risk or dividend yield metric, optionally within a sector or ETF category (e.g. \"lowest volatility dividend ETFs\", \"highest yielding bond ETFs\", \"highest Sharpe tech stocks this year\", \"energy stocks with the smallest drawdown\"). Covers about 2,900 US-listed stocks and about 1,200 US ETFs, end-of-day. Not for fundamentals (P/E, revenue), news or buy recommendations.",
+      "description": "Use this when the user wants a ranked list of US stocks or ETFs by a performance, risk or dividend yield metric, optionally within a sector or ETF category (e.g. \"lowest volatility dividend ETFs\", \"highest yielding bond ETFs\", \"highest Sharpe tech stocks this year\", \"energy stocks with the smallest drawdown\"). Covers about 2,900 US-listed stocks and about 1,700 US ETFs, end-of-day. Not for fundamentals (P/E, revenue), news or buy recommendations.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1997,5 +1997,5 @@
       }
     }
   ],
-  "version": "1.1.0"
+  "version": "1.1.1"
 }

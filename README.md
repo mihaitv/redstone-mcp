@@ -2,7 +2,7 @@
 
 Performance, risk, comparisons, backtests and screening for US stocks and ETFs, with charts.
 
-[Redstone Markets](https://redstonemarkets.com) has free return and risk analytics for about 2,900 US-listed stocks and 1,200 US ETFs. Its MCP server gives AI assistants the same figures: a ticker's returns and risk, side-by-side comparisons, portfolio backtests, screens, and the portfolios people have shared on Redstone.
+[Redstone Markets](https://redstonemarkets.com) has free return and risk analytics for about 2,900 US-listed stocks and 1,700 US ETFs. Its MCP server gives AI assistants the same figures: a ticker's returns and risk, side-by-side comparisons, portfolio backtests, screens, and the portfolios people have shared on Redstone.
 
 The server runs at redstonemarkets.com, so there is nothing to install or host. This repository holds its docs, its connection config and the Redstone agent skill.
 
