@@ -28,4 +28,4 @@ Every page is public. Request one with `Accept: text/markdown` to get its conten
 - The shared and model portfolios, paged with `?page=n`: https://redstonemarkets.com/portfolios
 - Screeners, paged with `?page=n`: https://redstonemarkets.com/screeners/stocks and https://redstonemarkets.com/screeners/etfs
 - Guides: https://redstonemarkets.com/learn
-- Methodology: https://redstonemarkets.com/about
+- Methodology: https://redstonemarkets.com/methodology
