@@ -95,7 +95,7 @@ npx skills add mihaitv/redstone-mcp
 
 ## Data
 
-The data is end-of-day, not real-time. Returns are total returns, split-adjusted with dividends reinvested on the ex-date, and risk figures cover the past year of daily closes. The [About page](https://redstonemarkets.com/about) explains how each figure is calculated.
+The data is end-of-day, not real-time. Returns are total returns, split-adjusted with dividends reinvested on the ex-date, and risk figures cover the past year of daily closes. The [methodology page](https://redstonemarkets.com/methodology) gives the formula behind each figure.
 
 Nothing the server returns is investment advice, and past performance doesn't predict future results.
 
