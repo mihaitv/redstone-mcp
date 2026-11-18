@@ -1,8 +1,8 @@
 # Redstone Markets MCP server
 
-Performance, risk, comparisons, backtests and screening for US stocks and ETFs, with charts.
+Performance, risk, comparisons, backtests and screening for US stocks, ETFs and closed-end funds, with charts.
 
-[Redstone Markets](https://redstonemarkets.com) has free return and risk analytics for about 2,900 US-listed stocks and 1,700 US ETFs. Its MCP server gives AI assistants the same figures: a ticker's returns and risk, side-by-side comparisons, portfolio backtests, screens, and the portfolios people have shared on Redstone.
+[Redstone Markets](https://redstonemarkets.com) has free return and risk analytics for about 2,900 US-listed stocks, 1,700 US ETFs and 200 closed-end funds. Its MCP server gives AI assistants the same figures: a ticker's returns and risk, side-by-side comparisons, portfolio backtests, screens, and the portfolios people have shared on Redstone.
 
 The server runs at redstonemarkets.com, so there is nothing to install or host. This repository holds its docs, its connection config and the Redstone agent skill.
 
@@ -69,10 +69,10 @@ A client that only runs local (stdio) servers can reach it through [`mcp-remote`
 
 | Tool | What it does |
 | --- | --- |
-| `get_security_metrics` | One stock or ETF: YTD, 1-year and 5-year annualized returns, max drawdown, volatility, Sharpe, Sortino, beta, alpha and dividend yield, with a 1-year and 5-year chart. |
-| `compare_securities` | 2 to 5 stocks or ETFs side by side: returns, drawdown, volatility, Sharpe, beta, dividend yield and how correlated they are, on one chart. |
-| `backtest_portfolio` | A weighted portfolio of 2 to 20 stocks and ETFs, rebalanced quarterly: returns over YTD, 1 and 5 years, max drawdown, volatility, Sharpe, beta, dividend yield and the correlation between holdings, charted against SPY, with a link that opens it on Redstone. |
-| `screen_securities` | Stocks or ETFs ranked by a return, risk or dividend yield metric, optionally within a sector or ETF category and within bounds on other metrics. |
+| `get_security_metrics` | One stock, ETF or closed-end fund: YTD, 1-year and 5-year annualized returns, max drawdown, volatility, Sharpe, Sortino, beta, alpha and dividend yield, with a 1-year and 5-year chart. |
+| `compare_securities` | 2 to 5 stocks, ETFs or closed-end funds side by side: returns, drawdown, volatility, Sharpe, beta, dividend yield and how correlated they are, on one chart. |
+| `backtest_portfolio` | A weighted portfolio of 2 to 20 stocks, ETFs or closed-end funds, rebalanced quarterly: returns over YTD, 1 and 5 years, max drawdown, volatility, Sharpe, beta, dividend yield and the correlation between holdings, charted against SPY, with a link that opens it on Redstone. |
+| `screen_securities` | Stocks, ETFs or closed-end funds ranked by a return, risk or dividend yield metric, optionally within a sector or fund category and within bounds on other metrics. |
 | `search_portfolios` | The portfolios Redstone's users built and shared, and Redstone's model portfolios, found by what they hold, their name, or their returns, drawdown, Sharpe and yield. |
 | `get_portfolio` | One shared or model portfolio: its holdings with each one's figures, and its returns and risk, charted against SPY. |
 
