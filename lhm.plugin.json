@@ -11,7 +11,7 @@
   "resources": [
     {
       "name": "performance-chart",
-      "uri": "ui://redstone/performance-chart-v3.html",
+      "uri": "ui://redstone/performance-chart-v4.html",
       "description": "Performance chart and risk table for stocks, ETFs or a portfolio",
       "mimeType": "text/html;profile=mcp-app"
     }
@@ -52,9 +52,9 @@
       },
       "_meta": {
         "ui": {
-          "resourceUri": "ui://redstone/performance-chart-v3.html"
+          "resourceUri": "ui://redstone/performance-chart-v4.html"
         },
-        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/outputTemplate": "ui://redstone/performance-chart-v4.html",
         "openai/toolInvocation/invoking": "Loading Redstone metrics…",
         "openai/toolInvocation/invoked": "Metrics loaded"
       },
@@ -272,9 +272,9 @@
       },
       "_meta": {
         "ui": {
-          "resourceUri": "ui://redstone/performance-chart-v3.html"
+          "resourceUri": "ui://redstone/performance-chart-v4.html"
         },
-        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/outputTemplate": "ui://redstone/performance-chart-v4.html",
         "openai/toolInvocation/invoking": "Comparing on Redstone…",
         "openai/toolInvocation/invoked": "Comparison ready"
       },
@@ -535,9 +535,9 @@
       },
       "_meta": {
         "ui": {
-          "resourceUri": "ui://redstone/performance-chart-v3.html"
+          "resourceUri": "ui://redstone/performance-chart-v4.html"
         },
-        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/outputTemplate": "ui://redstone/performance-chart-v4.html",
         "openai/toolInvocation/invoking": "Backtesting on Redstone…",
         "openai/toolInvocation/invoked": "Backtest ready"
       },
@@ -1552,9 +1552,9 @@
       },
       "_meta": {
         "ui": {
-          "resourceUri": "ui://redstone/performance-chart-v3.html"
+          "resourceUri": "ui://redstone/performance-chart-v4.html"
         },
-        "openai/outputTemplate": "ui://redstone/performance-chart-v3.html",
+        "openai/outputTemplate": "ui://redstone/performance-chart-v4.html",
         "openai/toolInvocation/invoking": "Loading the portfolio…",
         "openai/toolInvocation/invoked": "Portfolio loaded"
       },
@@ -2012,5 +2012,5 @@
       }
     }
   ],
-  "version": "1.1.2"
+  "version": "1.1.3"
 }
